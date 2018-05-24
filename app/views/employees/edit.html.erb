@@ -1,3 +1,4 @@
+<% render "form" %>
 <%= form_for @employee do |e| %>
 <%= e.label :last_name %>
 <%= e.text_field :last_name %>
@@ -7,6 +8,9 @@
 
 <%= e.label :alias %>
 <%= e.text_field :alias %>
+
+<%= e.label :title %>
+<%= e.text_field :title %>
 
 <%= e.label :office %>
 <%= e.text_field :office %>
