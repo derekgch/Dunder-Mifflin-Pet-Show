@@ -1,3 +1,7 @@
 <%= @dog.name %>
 <%= @dog.breed %>
 <%= @dog.age %>
+
+<% @dog.employees.each do |e| %>
+<%= link_to e.name, e %> <br>
+<% end %>

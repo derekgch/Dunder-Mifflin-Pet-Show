@@ -3,7 +3,7 @@ before_action :get_dog, only: [:show]
 
 
   def index
-    @dogs = Dog.all
+    @dogs = Dog.all.sort_by{|d| d.employees.count}.reverse
   end
 
   def show

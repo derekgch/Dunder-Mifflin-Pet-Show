@@ -1,9 +1,15 @@
 class EmployeesController < ApplicationController
 before_action :get_employee, only: [:show, :edit, :update]
 
-  def index
-    @employees = Employee.all
+    def index
+   @employees = Employee.all
+   if params[:search]
+     @employees = Employee.search(params[:search]).order("created_at DESC")
+   else
+     @employees = Employee.all.order("created_at DESC")
+   end
   end
+
 
   def show
   end
@@ -14,12 +20,10 @@ before_action :get_employee, only: [:show, :edit, :update]
   end
 
   def create
-
     @employee = Employee.create(getparams)
     if @employee.valid?
       redirect_to employee_path(@employee)
     else
-      flash[:errors] = @employee.errors.full_messages
       redirect_to new_employee_path
     end
   end
@@ -30,12 +34,7 @@ before_action :get_employee, only: [:show, :edit, :update]
 
   def update
     @employee.update(getparams)
-    if @employee.valid?
-      redirect_to employee_path
-    else
-      flash[:errors] = @employee.errors.full_messages
-      redirect_to edit_employee_path(@employee.id)
-    end
+    redirect_to employee_path
   end
 
   private
