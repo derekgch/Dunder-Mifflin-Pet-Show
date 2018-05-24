@@ -24,6 +24,7 @@ before_action :get_employee, only: [:show, :edit, :update]
     if @employee.valid?
       redirect_to employee_path(@employee)
     else
+      flash[:errors] = @employee.errors.full_messages
       redirect_to new_employee_path
     end
   end
@@ -34,7 +35,13 @@ before_action :get_employee, only: [:show, :edit, :update]
 
   def update
     @employee.update(getparams)
-    redirect_to employee_path
+    if @employee.valid?
+      redirect_to employee_path(@employee)
+    else
+      flash[:errors] = @employee.errors.full_messages
+      redirect_to edit_employee_path
+    end
+
   end
 
   private
