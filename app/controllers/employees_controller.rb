@@ -1,5 +1,5 @@
 class EmployeesController < ApplicationController
-before_action :get_employee, only: [:show]
+before_action :get_employee, only: [:show, :edit, :update]
 
   def index
     @employees = Employee.all
@@ -14,9 +14,24 @@ before_action :get_employee, only: [:show]
   end
 
   def create
+
     @employee = Employee.create(getparams)
-    redirect_to employee_path(@employee)
+    if @employee.valid?
+      redirect_to employee_path(@employee)
+    else
+      redirect_to new_employee_path
+    end
   end
+
+  def edit
+    @dogs = Dog.all
+  end
+
+  def update
+    @employee.update(getparams)
+    redirect_to employee_path
+  end
+
   private
 
   def get_employee
