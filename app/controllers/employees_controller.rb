@@ -7,7 +7,7 @@ before_action :get_employee, only: [:show]
 
   def show
   end
-  
+
   def new
     @employee = Employee.new
     @dogs = Dog.all
@@ -15,6 +15,7 @@ before_action :get_employee, only: [:show]
 
   def create
     @employee = Employee.create(getparams)
+    redirect_to employee_path(@employee)
   end
   private
 
@@ -23,7 +24,7 @@ before_action :get_employee, only: [:show]
   end
 
   def getparams
-    params.require(:employee).permit(:first_name, :last  , :office, :alias, )
+    params.require(:employee).permit(:first_name, :last_name, :title, :office, :alias, :img_url, :dog_id )
   end
 
 end
